@@ -10,6 +10,14 @@ title: tmux
 
     $ tmux attach
 
+### Sessions
+
+    $ tmux new -s myname
+    $ tmux a  #  (or at, or attach)
+    $ tmux a -t myname
+    $ tmux ls
+    $ tmux kill-session -t myname
+
 ### Help
 
     C-b ?
