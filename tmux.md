@@ -59,6 +59,12 @@ title: tmux
 
     C-b t    # Time
 
+### Renaming
+
+    C-b ,    # rename current window in session
+    C-b $    # rename current session
+
+
 ## Status formats
 
 ```
