@@ -10,6 +10,12 @@ title: tmux
 
     $ tmux attach
 
+    # Enter Command Mode in TMUX session
+    <leader> : 
+
+    # e.g. sourcing your conf file after changes
+    <leader>:source-file ~/.tmux.conf
+
 ### Sessions
 
     $ tmux new -s myname

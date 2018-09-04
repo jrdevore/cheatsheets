@@ -35,6 +35,13 @@ Apex domains (alternative):
     A => 192.30.252.153
     A => 192.30.252.154
 
+### Serve Locally (windows)
+
+_See -> [Setting up your GitHub Pages site locally with Jekyll - User Documentation](https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/)_
+
+*  From the website's root dir: `bundle exec jekyll serve`
+
+
 ## References
 {: .-one-column}
 
