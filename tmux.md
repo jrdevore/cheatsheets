@@ -35,8 +35,8 @@ title: tmux
 
 ### Panes
 
-    C-b v       # vert
-    C-b n       # horiz
+    C-b %       # vert
+    C-b "       # horizontal split
     C-b hkjl    # navigation
     C-b HJKL    # resize
     C-b o       # next window
@@ -123,3 +123,41 @@ See `message-command-style` in the man page.
     setw -g window-status-current-format
 
     setw -g window-status-separator
+
+## My Tmux Config
+
+_As of: Tuesday Sep 4, 2018_
+
+```
+et -g prefix C-a
+set -g mouse on
+setw -g window-status-format " #I #W "
+setw -g window-status-current-format "#[fg=color82,bold] #I #W "
+setw -g window-status-current-fg colour65
+setw -g window-status-current-bg black
+setw -g window-status-current-attr bright
+set -g status-position top
+set -g status-left-length 40
+set -g status-left "#[fg=colour65,bold]#I:#P #[fg=colour246]#S"
+set -g status-right "#[fg=colour246]%d %b %R"
+set -g status-justify centre
+
+# Enable VI mode
+setw -g mode-keys vi
+bind -T copy-mode-vi 'v' send -X begin-selection
+
+# Mouse Scrolling & VI Copy
+bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'select-pane -t=; copy-mode -e; send-keys -M'"
+bind -n WheelDownPane select-pane -t= \; send-keys -M
+bind -t vi-copy WheelUpPane halfpage-up
+bind -t vi-copy WheelDownPane halfpage-down
+
+bind P paste-buffer
+bind-key -t vi-copy 'v' begin-selection
+bind-key -t vi-copy 'y' copy-pipe "xclip -sel clip -i"
+bind-key -t vi-copy 'r' rectangle-toggle
+bind -n M-Left select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up select-pane -U
+bind -n M-Down select-pane -D
+```
