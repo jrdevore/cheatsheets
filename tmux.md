@@ -43,6 +43,7 @@ title: tmux
 
     C-b %       # vert
     C-b "       # horizontal split
+    C-b esc 1   # change from horiz to vert
     C-b hkjl    # navigation
     C-b HJKL    # resize
     C-b o       # next window
