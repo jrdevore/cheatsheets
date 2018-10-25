@@ -1,7 +1,7 @@
 home:
   title: "James's cheatsheets"
   tagline: |
-    This is a modest collection of cheatsheets I've curated
+    collection of cheatsheets
 
 top_nav:
   title: jdevore.io
@@ -10,12 +10,6 @@ top_nav:
 
 sheet:
   suffix: cheatsheet
-
-# social_list:
-#   default_description: "Ridiculous collection of web development cheatsheets"
-#   description: "The ultimate cheatsheet for TITLE."
-#   facebook_share: Share on Facebook
-#   twitter_share: Share on Twitter
 
 related_posts_callout:
   description: Over SIZE curated cheatsheets, by developers for developers.
@@ -31,20 +25,7 @@ search_form:
   home_placeholder: Search...
   prefix: devhints.io
 
-# comments_area:
-#   suffix: for this cheatsheet.
-#   link: "Write yours!"
-
 not_found:
   title: Not found
   description: Sorry, we don't have a cheatsheet for this yet. Try searching!
   home: Back to home
-
-# announcement:
-#   id: 2017-10-26-twitter
-#   title: |
-#     New: We're on Twitter ♥️
-#   body: |
-#     Follow [@devhints](https://twitter.com/devhints) on Twitter for daily "today I learned" snippets!
-
-#     [![](https://img.shields.io/twitter/follow/devhints.svg?style=social&label=@devhints)](https://twitter.com/devhints)
