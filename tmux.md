@@ -1,5 +1,7 @@
 ---
 title: tmux
+layout: 2017/sheet
+tags: [Featured]
 ---
 
 ### Commands
@@ -11,7 +13,7 @@ title: tmux
     $ tmux attach
 
     # Enter Command Mode in TMUX session
-    <leader> : 
+    <leader> :
 
     # e.g. sourcing your conf file after changes
     <leader>:source-file ~/.tmux.conf
@@ -26,50 +28,52 @@ title: tmux
 
 ### Help
 
-    C-b ?
+    <leader> ?
 
 ### Scrolling
 
-    C-b [       # Enter scroll mode then press up and down
+    <leader> [       # Enter scroll mode then press up and down
 
 ### Copy/paste
 
-    C-b [       # 1. Enter scroll mode first.
+    <leader> [       # 1. Enter scroll mode first.
     Space       # 2. Start selecting and move around.
     Enter       # 3. Press enter to copy.
-    C-b ]       # Paste
+    <leader> ]       # Paste
 
 ### Panes
 
-    C-b %       # vert
-    C-b "       # horizontal split
-    C-b esc 1   # change from horiz to vert
-    C-b hkjl    # navigation
-    C-b HJKL    # resize
-    C-b o       # next window
-    C-b x       # close pane
+    <leader> %       # vert
+    <leader> "       # horizontal split
+    <leader> esc 1   # change from horiz to vert
+    <leader> esc 2  # change from vert to horiz
+    <leader> <spacekey>  # cycle tonext layout (vert -> horiz || horiz -> vert)
+    <leader> hkjl    # navigation
+    <leader> HJKL    # resize
+    <leader> o       # next window
+    <leader> x       # close pane
 
-    C-b { or }  # move windows around
+    <leader> { or }  # move windows around
 
 ### Windows
 
-    C-b c       # New window
-    C-b 1       # Go to window 1
+    <leader> c       # New window
+    <leader> 1       # Go to window 1
 
 ### Detach/attach
 
-    C-b d       # Detach
-    C-b ( )     # Switch through sessions
+    <leader> d       # Detach
+    <leader> ( )     # Switch through sessions
     $ tmux attach
 
 ### Niceties
 
-    C-b t    # Time
+    <leader> t    # Time
 
 ### Renaming
 
-    C-b ,    # rename current window in session
-    C-b $    # rename current session
+    <leader> ,    # rename current window in session
+    <leader> $    # rename current session
 
 
 ## Status formats

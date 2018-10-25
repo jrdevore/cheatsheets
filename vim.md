@@ -3,7 +3,7 @@ title: Vim
 category: Vim
 layout: 2017/sheet
 tags: [Featured]
-updated: 2017-08-26
+updated: 2018-10-26
 weight: -10
 intro: |
   [Vim](http://www.vim.org/) is a very efficient text editor. This reference was made for Vim 8.0.
@@ -360,6 +360,51 @@ Do this in insert mode.
 
 Works like `:qa`, but throws an error. Great for aborting Git commands.
 
+
+### My Vimrc
+
+```
+call plug#begin('~/.vim/plugged')
+Plug 'dyng/ctrlsf.vim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'rbgrouleff/bclose.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+call plug#end()
+set number
+set nobackup
+set nowritebackup
+set noswapfile
+set fileformats=unix,dos,mac
+set clipboard=unnamed
+colorscheme nord
+let g:nord_italic = 1
+let mapleader = ','
+let g:ctrlp_map = '<C-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
+let g:ctrlp_working_path_mode = ''
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_close_button = 1
+let g:airline#extensions#tabline#close_symbol = 'X'
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-b> :bprevious<CR>
+nnoremap <silent> <Leader>bd :Bclose<CR>
+nnoremap <Leader>sv :source ~/.vimrc<CR>
+nnoremap <Leader>ev :e ~/.vimrc<CR>
+nnoremap <Leader>sp :set paste<CR>
+nnoremap <Leader>nsp :set nopaste<CR>
+nnoremap <Leader>nn :set nonumber<CR>
+nnoremap <Leader>sn :set number<CR>
+noremap <Leader>pi :PlugInstall<CR>
+noremap <Leader>pu :PlugUpgrade<CR>
+noremap <Leader>pc :PlugClean<CR>
+nmap  <Leader>sw <Plug>CtrlSFCwordExec
+nmap  <Leader>sf <Plug>CtrlSFPrompt
+nnoremap <Leader>st :CtrlSFToggle<CR>
+set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+```
 Also see
 --------
 

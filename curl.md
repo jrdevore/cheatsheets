@@ -2,7 +2,8 @@
 title: Curl
 category: CLI
 layout: 2017/sheet
-updated: 2017-09-20
+updated: 2018-10-25
+tags: [Featured]
 ---
 
 ## Options
