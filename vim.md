@@ -405,6 +405,7 @@ nmap  <Leader>sf <Plug>CtrlSFPrompt
 nnoremap <Leader>st :CtrlSFToggle<CR>
 set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 ```
+
 Also see
 --------
 
@@ -412,3 +413,6 @@ Also see
 - [Vim documentation](http://vimdoc.sourceforge.net/htmldoc/) _(vimdoc.sourceforge.net)_
 - [Interactive Vim tutorial](http://openvim.com/) _(openvim.com)_
 - [Search and Replace in VIM](http://vim.wikia.com/wiki/Search_and_replace) _(vim.wikia.com)_
+- [vim-from-scratch: Rico's guide for setting up Vim](https://github.com/rstacruz/vim-from-scratch)
+- [junegunn/fzf: A command-line fuzzy finder](https://github.com/junegunn/fzf)
+- [mhinz/vim-galore: All things Vim!](https://github.com/mhinz/vim-galore#readme)
