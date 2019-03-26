@@ -136,8 +136,8 @@ See `message-command-style` in the man page.
     setw -g window-status-separator
 
 ## My Tmux Config
-
-_As of: Tuesday Sep 4, 2018_
+> ~/.tmux.conf
+> _As of: Tuesday Mar 26, 2019_
 
 ```
 et -g prefix C-a
@@ -171,4 +171,12 @@ bind -n M-Left select-pane -L
 bind -n M-Right select-pane -R
 bind -n M-Up select-pane -U
 bind -n M-Down select-pane -D
+run-shell ~/tmux-pain-control/pain_control.tmux
 ```
+
+---
+
+## Extensions / Plugins
+
+*  [tmux-plugins/tmux-pain-control: standard pane key-bindings for tmux](https://github.com/tmux-plugins/tmux-pain-control)
+*  [Tmux Plugins](https://github.com/tmux-plugins)
