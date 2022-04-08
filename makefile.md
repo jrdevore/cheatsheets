@@ -1,16 +1,23 @@
 ---
 title: Makefile
-hljs_languages: [makefile]
+prism_languages: [makefile]
 layout: 2017/sheet
+category: CLI
 ---
 
 ## Var assignment
 
 ```makefile
-uglify = $(uglify)        # assignment
-compressor := $(uglify)   # lazy assignment
-prefix ?= /usr/local      # safe assignment
+foo  = "bar"
+bar  = $(foo) foo  # dynamic (renewing) assignment
+foo := "boo"       # one time assignment, $(bar) now is "boo foo"
+foo ?= /usr/local  # safe assignment, $(foo) and $(bar) still the same
+bar += world       # append, "boo foo world"
+foo != echo fooo   # exec shell command and assign to foo
+# $(bar) now is "fooo foo world"
 ```
+
+`=` expressions are only evaluated when they're being used.
 
 ## Magic variables
 
@@ -33,11 +40,11 @@ also:
 
 ## Command prefixes
 
-| Prefix | Description |
-| ------ | ----------- |
-| `-` | Ignore errors |
-| `@` | Don't print command |
-| `+` | Run even if Make is in 'don't execute' mode |
+| Prefix | Description                                 |
+| ------ | ------------------------------------------- |
+| `-`    | Ignore errors                               |
+| `@`    | Don't print command                         |
+| `+`    | Run even if Make is in 'don't execute' mode |
 
 ```makefile
 build:
@@ -94,7 +101,6 @@ make
   -e, --environment-overrides
   -B, --always-make
   -s, --silent
-
   -j, --jobs=N   # parallel processing
 ```
 
@@ -103,9 +109,9 @@ make
 ```makefile
 foo: $(objects)
 ifeq ($(CC),gcc)
-        $(CC) -o foo $(objects) $(libs_for_gcc)
+  $(CC) -o foo $(objects) $(libs_for_gcc)
 else
-        $(CC) -o foo $(objects) $(normal_libs)
+  $(CC) -o foo $(objects) $(normal_libs)
 endif
 ```
 
@@ -118,4 +124,6 @@ deploy:
 
 ## Further reading
 
- * [isaacs's Makefile](https://gist.github.com/isaacs/62a2d1825d04437c6f08)
+- [isaacs's Makefile](https://gist.github.com/isaacs/62a2d1825d04437c6f08)
+- [Your Makefiles are wrong](https://tech.davis-hansson.com/p/make/)
+- [Manual](https://www.gnu.org/software/make/manual/html_node/index.html)

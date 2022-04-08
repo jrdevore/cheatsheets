@@ -2,8 +2,7 @@
 title: Curl
 category: CLI
 layout: 2017/sheet
-updated: 2018-10-25
-tags: [Featured]
+updated: 2020-03-09
 ---
 
 ## Options
@@ -18,9 +17,12 @@ tags: [Featured]
 ```bash
 -v           # --verbose
 -vv          # Even more verbose
+-s           # --silent: don't show progress meter or errors
+-S           # --show-error: when used with --silent (-sS), show errors but no progress meter
 ```
 
 ```bash
+-i           # --include: Include the HTTP-header in the output
 -I           # --head: headers only
 ```
 
@@ -28,6 +30,8 @@ tags: [Featured]
 
 ```bash
 -X POST          # --request
+-L               # follow link if page redirects
+-F 	             # --form: HTTP POST data for multipart/form-data
 ```
 
 ### Data
@@ -56,7 +60,7 @@ tags: [Featured]
 ```
 
 ```bash
--E, --ecrt <cert>     # --ecrt: Client cert file
+-E, --cert <cert>     # --cert: Client cert file
     --cert-type       # der/pem/eng
 -k, --insecure        # for self-signed certs
 ```
@@ -77,4 +81,13 @@ curl -u user:pass -d status="Hello" http://twitter.com/statuses/update.xml
 ```bash
 # multipart file upload
 curl -v -include --form key1=value1 --form upload=@localfilename URL
+
+# multipart form: send data from text field and upload file
+curl -F person=anonymous -F secret=@file.txt http://example.com/submit.cgi
+```
+
+```bash
+# Use Curl to Check if a remote resource is available
+# details: https://matthewsetter.com/check-if-file-is-available-with-curl/
+curl -o /dev/null --silent -Iw "%{http_code}" https://example.com/my.remote.tarball.gz
 ```

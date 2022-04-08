@@ -3,7 +3,7 @@ title: pm2
 category: CLI
 layout: 2017/sheet
 authors: { github: "Dr-Dino" }
-updated: 2018-03-15
+updated: 2020-05-08
 ---
 
 ### Fork mode
@@ -26,7 +26,7 @@ updated: 2018-03-15
 | `pm2 jlist`      | Print process list in raw JSON                      |
 | `pm2 prettylist` | Print process list in beautified JSON               |
 | ---              | ---                                                 |
-| `pm2 describe 0` | Display all informations about a specific process	 |
+| `pm2 describe 0` | Display all information about a specific process	 |
 | ---              | ---                                                 |
 | `pm2 monit`      | Monitor all processes                               |
 
@@ -52,6 +52,8 @@ updated: 2018-03-15
 | ---               | ---                                            |
 | `pm2 delete 0`    | Will remove process from pm2 list              |
 | `pm2 delete all`  | Will remove all processes from pm2 list        |
+| ---               | ---                                            |
+| `pm2 save`        | Save processes list to respawn at reboot       |
 
 ### Misc
 

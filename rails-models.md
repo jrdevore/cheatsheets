@@ -247,11 +247,11 @@ Associations
 belongs_to :parent, :foreign_key => 'parent_id' class_name: 'Folder'
 has_many :folders, :foreign_key => 'parent_id', class_name: 'Folder'
 
-has_many :comments,    :order      => "posted_on"
+has_many :comments,                -> { order('posted_on DESC') }
 has_many :comments,    :include    => :author
 has_many :people,      :class_name => "Person"
 has_many :people,      :conditions => "deleted = 0"
-has_many :tracks,      :order      => "position"
+has_many :tracks,                  -> { order(:position) }
 has_many :comments,    :dependent  => :nullify
 has_many :comments,    :dependent  => :destroy
 has_many :tags,        :as         => :taggable
@@ -505,7 +505,7 @@ Article.joins(:category, :comments)
 ```
 
 ```ruby
-# Nested assocations
+# Nested associations
 Article.joins(comments: :guest)
 ```
 
@@ -586,8 +586,13 @@ See: <http://api.rubyonrails.org/classes/ActiveRecord/Base.html>
 Callbacks
 ---------
 
-- after_create
 - after_initialize
-- after_validation
-- after_save
+- before_validation / after_validation
+- before_save / after_save / around_save
+- before_create / after_create / around_create
+- before_update / after_update / around_update
+- before_destroy / after_destroy / around_destroy
 - after_commit
+- after_rollback
+
+See: [ActiveRecord Callbacks](https://guides.rubyonrails.org/active_record_callbacks.html)

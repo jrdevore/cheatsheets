@@ -9,7 +9,10 @@ weight: -1
 {: .-prime}
 
 ```bash
+# syncing folder src into dest:
 rsync -avz ./src /dest
+# syncing the content of src into dest:
+rsync -avz ./src/ /dest
 ```
 
 ### OSX
@@ -25,6 +28,8 @@ rsync -avz ./src /dest
 ```bash
 -z, --compress
 -n, --dry-run
+    --partial   # allows resuming of aborted syncs
+    --bwlimit=RATE    # limit socket I/O bandwidth
 ```
 
 ### Display options
@@ -32,8 +37,10 @@ rsync -avz ./src /dest
 ```bash
 -q, --quiet
 -v, --verbose
+    --stats
 -h, --human-readable
     --progress
+-P                     # same as --partial --progress
 ```
 
 ### Skipping options
@@ -61,7 +68,11 @@ rsync -avz ./src /dest
 ```bash
 --exclude-from=FILE
 --include-from=FILE
---files-from=FILE    # read list of filenames from FILe
+--files-from=FILE    # read list of filenames from FILE
+```
+
+```bash
+-C, --cvs-exclude    # exclude from local/global .cvsignore
 ```
 
 ### Archive options
@@ -77,7 +88,7 @@ rsync -avz ./src /dest
 -t, --times      # preserve times
 -g, --group      # preserve group
 -o, --owner      # preserve owner
--D               # --devices --specials
+-D               # same as --devices --specials
 ```
 
 ```bash

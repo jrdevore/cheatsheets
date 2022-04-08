@@ -2,6 +2,7 @@
 title: Find
 category: CLI
 layout: 2017/sheet
+updated: 2019-11-17
 ---
 
 ### Usage
@@ -34,11 +35,33 @@ find <path> <conditions> <actions>
 ```
 
 ```bash
+-size 8            # Exactly 8 512-bit blocks 
+-size -128c        # Smaller than 128 bytes
+-size 1440k        # Exactly 1440KiB
+-size +10M         # Larger than 10MiB
+-size +2G          # Larger than 2GiB
+```
+
+```bash
 -newer   file.txt
 -newerm  file.txt        # modified newer than file.txt
 -newerX  file.txt        # [c]hange, [m]odified, [B]create
 -newerXt "1 hour ago"    # [t]imestamp
 ```
+
+### Access time conditions
+
+```bash
+-atime 0           # Last accessed between now and 24 hours ago
+-atime +0          # Accessed more than 24 hours ago
+-atime 1           # Accessed between 24 and 48 hours ago
+-atime +1          # Accessed more than 48 hours ago
+-atime -1          # Accessed less than 24 hours ago (same a 0)
+-ctime -6h30m      # File status changed within the last 6 hours and 30 minutes
+-mtime +1w         # Last modified more than 1 week ago
+```
+
+These conditions only work in MacOS and BSD-like systems (no GNU/Linux support).
 
 ### Condition flow
 
@@ -64,4 +87,8 @@ find . -name '*.jpg' -exec rm {} \;
 
 ```bash
 find . -newerBt "24 hours ago"
+```
+
+```bash
+find . -type f -mtime +29 # find files modified more than 30 days ago
 ```

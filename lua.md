@@ -32,7 +32,7 @@ title: Lua
 
     -- Remember, arrays are also tables
     array = { "a", "b", "c", "d" }
-    print(array[2])       -- "b" (zero-indexed)
+    print(array[2])       -- "b" (one-indexed)
     print(#array)         -- 4 (length)
 
 ## Loops
@@ -61,7 +61,7 @@ title: Lua
 
     if condition then
       print("yes")
-    elsif condition then
+    elseif condition then
       print("maybe")
     else
       print("no")
@@ -183,8 +183,9 @@ title: Lua
        -
 
     -- Logic (and/or)
-    nil and 10     --> 10
+    nil and false  --> nil
     false and nil  --> false
+    0 and 20       --> 20
     10 and 20      --> 20
 
 

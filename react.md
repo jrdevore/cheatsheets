@@ -2,7 +2,9 @@
 title: React.js
 category: React
 layout: 2017/sheet
-updated: 2017-10-10
+ads: true
+tags: [Featured]
+updated: 2020-07-05
 weight: -10
 keywords:
   - React.Component
@@ -46,20 +48,36 @@ ReactDOM.render(<Hello name='John' />, el)
 
 Use the [React.js jsfiddle](http://jsfiddle.net/reactjs/69z2wepo/) to start hacking. (or the unofficial [jsbin](http://jsbin.com/yafixat/edit?js,output))
 
+### Import multiple exports
+{: .-prime}
+
+```jsx
+import React, {Component} from 'react'
+import ReactDOM from 'react-dom'
+```
+{: .-setup}
+
+```jsx
+class Hello extends Component {
+  ...
+}
+```
+
 ### Properties
 
 ```html
-<Video fullscreen={true} />
+<Video fullscreen={true} autoplay={false} />
 ```
 {: .-setup}
 
 ```jsx
 render () {
   this.props.fullscreen
+  const { fullscreen, autoplay } = this.props
   ···
 }
 ```
-{: data-line="2"}
+{: data-line="2,3"}
 
 Use `this.props` to access properties passed to the component.
 
@@ -70,7 +88,7 @@ See: [Properties](https://reactjs.org/docs/tutorial.html#using-props)
 ```jsx
 constructor(props) {
   super(props)
-  this.state = {}
+  this.state = { username: undefined }
 }
 ```
 
@@ -81,19 +99,30 @@ this.setState({ username: 'rstacruz' })
 ```jsx
 render () {
   this.state.username
+  const { username } = this.state
   ···
 }
 ```
-{: data-line="2"}
+{: data-line="2,3"}
 
 Use states (`this.state`) to manage dynamic data.
 
+With [Babel](https://babeljs.io/) you can use [proposal-class-fields](https://github.com/tc39/proposal-class-fields) and get rid of constructor
+
+```jsx
+class Hello extends Component {
+  state = { username: undefined };
+  ...
+}
+```
+
 See: [States](https://reactjs.org/docs/tutorial.html#reactive-state)
+
 
 ### Nesting
 
 ```jsx
-class Info extends React.Component {
+class Info extends Component {
   render () {
     const { avatar, username } = this.props
 
@@ -107,20 +136,24 @@ class Info extends React.Component {
 As of React v16.2.0, fragments can be used to return multiple children without adding extra wrapping nodes to the DOM.
 
 ```jsx
-class Info extends React.Component {
+import React, {
+  Component,
+  Fragment
+} from 'react'
+
+class Info extends Component {
   render () {
     const { avatar, username } = this.props
 
     return (
-      <React.Fragment>
+      <Fragment>
         <UserAvatar src={avatar} />
         <UserProfile username={username} />
-      </React.Fragment>
+      </Fragment>
     )
   }
 }
 ```
-
 
 {: data-line="5,6,7,8,9,10"}
 
@@ -138,7 +171,7 @@ See: [Composing Components](https://reactjs.org/docs/components-and-props.html#c
 {: data-line="2"}
 
 ```jsx
-class AlertBox extends React.Component {
+class AlertBox extends Component {
   render () {
     return <div className='alert-box'>
       {this.props.children}
@@ -167,7 +200,7 @@ See: [defaultProps](https://reactjs.org/docs/react-component.html#defaultprops)
 ### Setting default state
 
 ```jsx
-class Hello extends React.Component {
+class Hello extends Component {
   constructor (props) {
     super(props)
     this.state = { visible: true }
@@ -178,13 +211,22 @@ class Hello extends React.Component {
 
 Set the default state in the `constructor()`.
 
+And without constructor using [Babel](https://babeljs.io/) with [proposal-class-fields](https://github.com/tc39/proposal-class-fields).
+
+```jsx
+class Hello extends Component {
+  state = { visible: true }
+}
+```
+{: data-line="2"}
+
 See: [Setting the default state](https://reactjs.org/docs/react-without-es6.html#setting-the-initial-state)
 
 Other components
 ----------------
 {: .-three-column}
 
-### Function components
+### Functional components
 
 ```jsx
 function MyComponent ({ name }) {
@@ -202,11 +244,13 @@ See: [Function and Class Components](https://reactjs.org/docs/components-and-pro
 ### Pure components
 
 ```jsx
-class MessageBox extends React.PureComponent {
+import React, {PureComponent} from 'react'
+
+class MessageBox extends PureComponent {
   ···
 }
 ```
-{: data-line="1"}
+{: data-line="3"}
 
 Performance-optimized version of `React.Component`. Doesn't rerender if props/state hasn't changed.
 
@@ -220,6 +264,7 @@ this.forceUpdate()
 
 ```jsx
 this.setState({ ... })
+this.setState(state => { ... })
 ```
 
 ```jsx
@@ -237,33 +282,177 @@ Lifecycle
 
 ### Mounting
 
-| Method | Description |
-| --- | --- |
-| `constructor` _(props)_ | Before rendering [#](https://reactjs.org/docs/react-component.html#constructor) |
-| `componentWillMount()` | _Don't use this_ [#](https://reactjs.org/docs/react-component.html#componentwillmount) |
-| `render()` | Render  [#](https://reactjs.org/docs/react-component.html#render) |
-| `componentDidMount()` | After rendering (DOM available) [#](https://reactjs.org/docs/react-component.html#componentdidmount) |
-| --- | --- |
-| `componentWillUnmount()` | Before DOM removal [#](https://reactjs.org/docs/react-component.html#componentwillunmount) |
-| --- | --- |
-| `componentDidCatch()` | Catch errors (16+) [#](https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html) |
+| Method                   | Description                                                                                          |
+| ------------------------ | ---------------------------------------------------------------------------------------------------- |
+| `constructor` _(props)_  | Before rendering [#](https://reactjs.org/docs/react-component.html#constructor)                      |
+| `componentWillMount()`   | _Don't use this_ [#](https://reactjs.org/docs/react-component.html#componentwillmount)               |
+| `render()`               | Render [#](https://reactjs.org/docs/react-component.html#render)                                     |
+| `componentDidMount()`    | After rendering (DOM available) [#](https://reactjs.org/docs/react-component.html#componentdidmount) |
+| ---                      | ---                                                                                                  |
+| `componentWillUnmount()` | Before DOM removal [#](https://reactjs.org/docs/react-component.html#componentwillunmount)           |
+| ---                      | ---                                                                                                  |
+| `componentDidCatch()`    | Catch errors (16+) [#](https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html)          |
 
 Set initial the state on `constructor()`.
 Add DOM event handlers, timers (etc) on `componentDidMount()`, then remove them on `componentWillUnmount()`.
 
 ### Updating
 
-| Method | Description |
-| --- | --- |
-| `componentWillReceiveProps` *(newProps)* | Use `setState()` here |
-| `shouldComponentUpdate` *(newProps, newState)* | Skips `render()` if returns false |
-| `componentWillUpdate` *(newProps, newState)* | Can't use `setState()` here |
-| `render()` | Render |
-| `componentDidUpdate` *(prevProps, prevState)* | Operate on the DOM here |
+| Method                                                  | Description                                          |
+| ------------------------------------------------------- | ---------------------------------------------------- |
+| `componentDidUpdate` _(prevProps, prevState, snapshot)_ | Use `setState()` here, but remember to compare props |
+| `shouldComponentUpdate` _(newProps, newState)_          | Skips `render()` if returns false                    |
+| `render()`                                              | Render                                               |
+| `componentDidUpdate` _(prevProps, prevState)_           | Operate on the DOM here                              |
 
 Called when parents change properties and `.setState()`. These are not called for initial renders.
 
 See: [Component specs](http://facebook.github.io/react/docs/component-specs.html#updating-componentwillreceiveprops)
+
+Hooks (New)
+-----------
+{: .-two-column}
+
+### State Hook
+
+```jsx
+import React, { useState } from 'react';
+
+function Example() {
+  // Declare a new state variable, which we'll call "count"
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+{: data-line="5,10"}
+
+Hooks are a new addition in React 16.8.
+
+See: [Hooks at a Glance](https://reactjs.org/docs/hooks-overview.html)
+
+### Declaring multiple state variables
+
+```jsx
+function ExampleWithManyStates() {
+  // Declare multiple state variables!
+  const [age, setAge] = useState(42);
+  const [fruit, setFruit] = useState('banana');
+  const [todos, setTodos] = useState([{ text: 'Learn Hooks' }]);
+  // ...
+}
+```
+
+### Effect hook
+
+```jsx
+import React, { useState, useEffect } from 'react';
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
+    // Update the document title using the browser API
+    document.title = `You clicked ${count} times`;
+  }, [count]);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+{: data-line="6,7,8,9,10"}
+
+If you’re familiar with React class lifecycle methods, you can think of `useEffect` Hook as `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` combined.
+
+By default, React runs the effects after every render — including the first render.
+
+### Building your own hooks
+
+#### Define FriendStatus
+```jsx
+import React, { useState, useEffect } from 'react';
+
+function FriendStatus(props) {
+  const [isOnline, setIsOnline] = useState(null);
+
+  useEffect(() => {
+    function handleStatusChange(status) {
+      setIsOnline(status.isOnline);
+    }
+
+    ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);
+    return () => {
+      ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
+    };
+  }, [props.friend.id]);
+
+  if (isOnline === null) {
+    return 'Loading...';
+  }
+  return isOnline ? 'Online' : 'Offline';
+}
+```
+{: data-line="11,12,13,14"}
+
+Effects may also optionally specify how to “clean up” after them by returning a function.
+
+#### Use FriendStatus
+
+```jsx
+function FriendStatus(props) {
+  const isOnline = useFriendStatus(props.friend.id);
+
+  if (isOnline === null) {
+    return 'Loading...';
+  }
+  return isOnline ? 'Online' : 'Offline';
+}
+```
+{: data-line="2"}
+
+See: [Building Your Own Hooks](https://reactjs.org/docs/hooks-custom.html)
+
+### Hooks API Reference
+
+Also see: [Hooks FAQ](https://reactjs.org/docs/hooks-faq.html)
+
+#### Basic Hooks
+
+| Hook                         | Description                               |
+| ---------------------------- | ----------------------------------------- |
+| `useState`_(initialState)_   |                                           |
+| `useEffect`_(() => { ... })_ |                                           |
+| `useContext`_(MyContext)_    | value returned from `React.createContext` |
+
+Full details: [Basic Hooks](https://reactjs.org/docs/hooks-reference.html#basic-hooks)
+
+#### Additional Hooks
+
+| Hook                                         | Description                                                                 |
+| -------------------------------------------- | ---------------------------------------------------------------------------- |
+| `useReducer`_(reducer, initialArg, init)_    |                                                                              |
+| `useCallback`_(() => { ... })_               |                                                                              |
+| `useMemo`_(() => { ... })_                   |                                                                              |
+| `useRef`_(initialValue)_                     |                                                                              |
+| `useImperativeHandle`_(ref, () => { ... })_  |                                                                              |
+| `useLayoutEffect`                            | identical to `useEffect`, but it fires synchronously after all DOM mutations |
+| `useDebugValue`_(value)_                     | display a label for custom hooks in React DevTools                           |
+
+Full details: [Additional Hooks](https://reactjs.org/docs/hooks-reference.html#additional-hooks)
 
 DOM nodes
 ---------
@@ -272,7 +461,7 @@ DOM nodes
 ### References
 
 ```jsx
-class MyComponent extends React.Component {
+class MyComponent extends Component {
   render () {
     return <div>
       <input ref={el => this.input = el} />
@@ -293,7 +482,7 @@ See: [Refs and the DOM](https://reactjs.org/docs/refs-and-the-dom.html)
 ### DOM Events
 
 ```jsx
-class MyComponent extends React.Component {
+class MyComponent extends Component {
   render () {
     <input type="text"
         value={this.state.value}
@@ -321,7 +510,7 @@ See: [Events](https://reactjs.org/docs/events.html)
 {: .-setup}
 
 ```jsx
-class VideoPlayer extends React.Component {
+class VideoPlayer extends Component {
   render () {
     return <VideoEmbed {...this.props} />
   }
@@ -361,7 +550,7 @@ JSX patterns
 ### Style shorthand
 
 ```jsx
-var style = { height: 10 }
+const style = { height: 10 }
 return <div style={style}></div>
 ```
 
@@ -383,7 +572,7 @@ See: [Dangerously set innerHTML](https://reactjs.org/tips/dangerously-set-inner-
 ### Lists
 
 ```jsx
-class TodoList extends React.Component {
+class TodoList extends Component {
   render () {
     const { items } = this.props
 
@@ -401,19 +590,20 @@ Always supply a `key` property.
 ### Conditionals
 
 ```jsx
-<div>
+<Fragment>
   {showMyComponent
     ? <MyComponent />
     : <OtherComponent />}
-</div>
+</Fragment>
 ```
 
 ### Short-circuit evaluation
 
 ```jsx
-<div>
+<Fragment>
   {showPopup && <Popup />}
-</div>
+  ...
+</Fragment>
 ```
 
 New features
@@ -442,10 +632,10 @@ render () {
 render () {
   // Fragments don't require keys!
   return (
-    <React.Fragment>
+    <Fragment>
       <li>First item</li>
       <li>Second item</li>
-    </React.Fragment>
+    </Fragment>
   )
 }
 ```
@@ -469,7 +659,7 @@ See: [Fragments and strings](https://reactjs.org/blog/2017/09/26/react-v16.0.htm
 ### Errors
 
 ```js
-class MyComponent extends React.Component {
+class MyComponent extends Component {
   ···
   componentDidCatch (error, info) {
     this.setState({ error })
@@ -523,40 +713,54 @@ import PropTypes from 'prop-types'
 
 See: [Typechecking with PropTypes](https://reactjs.org/docs/typechecking-with-proptypes.html)
 
-| `any`                     | Anything                             |
+| Key   | Description |
+| ----- | ----------- |
+| `any` | Anything    |
 
 #### Basic
 
-| `string`                  |                                      |
-| `number`                  |                                      |
-| `func`                    | Function                             |
-| `bool`                    | True or false                        |
+| Key      | Description   |
+| -------- | ------------- |
+| `string` |               |
+| `number` |               |
+| `func`   | Function      |
+| `bool`   | True or false |
 
 #### Enum
 
-| `oneOf`_(any)_            | Enum types                           |
-| `oneOfType`_(type array)_ | Union                                |
+| Key                       | Description |
+| ------------------------- | ----------- |
+| `oneOf`_(any)_            | Enum types  |
+| `oneOfType`_(type array)_ | Union       |
 
 #### Array
 
-| `array`                   |                                      |
-| `arrayOf`_(...)_          |                                      |
+| Key              | Description |
+| ---------------- | ----------- |
+| `array`          |             |
+| `arrayOf`_(...)_ |             |
 
 #### Object
 
-| `object`                  |                                      |
-| `objectOf`_(...)_         | Object with values of a certain type |
-| `instanceOf`_(...)_       | Instance of a class                  |
-| `shape`_(...)_            |                                      |
+| Key                 | Description                          |
+| ------------------- | ------------------------------------ |
+| `object`            |                                      |
+| `objectOf`_(...)_   | Object with values of a certain type |
+| `instanceOf`_(...)_ | Instance of a class                  |
+| `shape`_(...)_      |                                      |
 
 #### Elements
 
-| `element`                 | React element                        |
-| `node`                    | DOM node                             |
+| Key       | Description   |
+| --------- | ------------- |
+| `element` | React element |
+| `node`    | DOM node      |
 
 #### Required
 
-| `(···).isRequired`        | Required                             |
+| Key                | Description |
+| ------------------ | ----------- |
+| `(···).isRequired` | Required    |
 
 ### Basic types
 

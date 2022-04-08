@@ -1,7 +1,6 @@
 ---
 title: tmux
-layout: 2017/sheet
-tags: [Featured]
+category: CLI
 ---
 
 ### Commands
@@ -10,7 +9,23 @@ tags: [Featured]
       -u        # UTF8 mode
       -S ~/.tmux.socket
 
-    $ tmux attach
+#### Sessions
+
+    $ tmux new
+    $ tmux new -s session_name
+
+    $ tmux attach # Default session
+    $ tmux attach -t session_name
+
+    $ tmux switch -t session_name
+
+    $ tmux ls     # List sessions
+
+    $ tmux detach
+
+#### Windows
+
+    $ tmux new-window
 
     # Enter Command Mode in TMUX session
     <leader> :
@@ -52,6 +67,13 @@ tags: [Featured]
     <leader> HJKL    # resize
     <leader> o       # next window
     <leader> x       # close pane
+    C-b %       # vert
+    C-b "       # horiz
+    C-b hkjl    # navigation
+    C-b HJKL    # resize
+    C-b o       # next window
+    C-b q       # show pane numbers
+    C-b x       # close pane
 
     <leader> { or }  # move windows around
 
@@ -59,6 +81,11 @@ tags: [Featured]
 
     <leader> c       # New window
     <leader> 1       # Go to window 1
+    C-b c       # New window
+    C-b 1       # Go to window 1
+    C-b n       # Go to next window
+    C-b p       # Go to previous window
+    C-b w       # List all window
 
 ### Detach/attach
 

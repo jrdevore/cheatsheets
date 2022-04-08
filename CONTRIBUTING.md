@@ -1,42 +1,54 @@
 # Developer notes
 
+## Gitpod
+
+This repository supports contribution using [gitpod](https://gitpod.io) which is online IDE using [Theia](https://github.com/eclipse-theia/theia).
+
+To open-up the environment simple natigate on https://gitpod.io/#https://github.com/rstacruz/cheatsheets
+
+Or using a button:<br>
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/rstacruz/cheatsheets)
+
+### Preview built website
+
+To preview the website you need to first build it then you can navigate to file that you are trying to contribute and preview directly.
+
+<img src='_docs/images/gitpod_preview_tut.png' width=828 height=459/>
+
 ## Starting a local instance
 
-This starts Jekyll and Webpack.
+This starts Jekyll and Parcel. This requires recent versions of [Node.js], [Yarn], [Ruby] and [Bundler] installed.
 
-```
+```bash
 yarn install
 bundle install
 env PORT=4001 yarn run dev
 ```
 
-### Windows
+[node.js]: https://nodejs.org/en/download/package-manager/
+[ruby]: https://www.ruby-lang.org/en/documentation/installation/
+[yarn]: https://yarnpkg.com/en/docs/install
+[bundler]: https://bundler.io/
 
-1. Install **Ruby**: https://rubyinstaller.org/
-	* After the installation check the box and type `3` to select the 3rd option
-	* Add `C:\msys64\usr\bin` to PATH env variable 
-	* Add `C:\Ruby24-x64\bin` to PATH env variable
-2. Install **yarn**: https://yarnpkg.com/en/docs/install#windows
-3. Install **jekyll** via command prompt: `gem install jekyll bundler`
-4. Install **nodejs && npm**: https://nodejs.org/en/download/
-4. Install **webpack** via command prompt: `npm install -g webpack`
-5. If you have any issues after installing ruby, like `HOMEPATH` is not defined, then execute the below commands:
+### Docker
+
+You can also run a local instance using Docker. This is the preferred method, especially for Windows.
+You only need to install Docker ([macOS](https://docs.docker.com/docker-for-mac/install/), [Windows](https://docs.docker.com/docker-for-windows/install/), [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/), [Arch Linux](https://www.archlinux.org/packages/community/x86_64/docker/), [other](https://www.docker.com/community-edition#download)).
+
+First time setup:
+
 ```bash
-SETX HOMEDRIVE %SYSTEMDRIVE% -m
-SETX HOMEPATH \Users\%username% -m
-SET HOME=%SYSTEMDRIVE%\Users\%USERNAME%
-SETX HOME "%HOME%"
+# Build images (takes ~12mins)
+docker-compose build
+
+# First-time setup
+docker-compose run --rm web bundle install && docker-compose run --rm web yarn install
 ```
 
-#### Start Jekyll and Webpack
-
-Go wherever the project's files are located and open a new command prompt, execute the below commands:
+Starting the server:
 
 ```bash
-yarn install
-bundle install
-SET PORT=4001
-yarn run dev
+docker-compose up
 ```
 
 ## CSS classes
@@ -45,9 +57,11 @@ See <https://devhints.io/cheatsheet-styles> for a reference on styling.
 
 ## JavaScript
 
-When updating JavaScript, be sure webpack is running (`yarn run dev` takes care of this).
+When updating JavaScript, be sure Parcel is running (`yarn dev` takes care of this).
 
-This auto-updates `/assets/packed/` with sources in `_js/`.
+This auto-updates `/assets/packed/` and `_includes/2017/critical/` with sources in `_parcel/`.
+
+Before committing, run `yarn parcel:build` first.
 
 ## JavaScript tests
 
@@ -64,16 +78,16 @@ Each sheet supports these metadata:
 ```yml
 ---
 title: React.js
-layout: 2017/sheet   # 'default' | '2017/sheet'
+layout: 2017/sheet # 'default' | '2017/sheet'
 
 # Optional:
 category: React
-updated: 2017-08-30       # To show in the updated list
-ads: false                # Add this to disable ads
-weight: -5                # lower number = higher in related posts list
-deprecated: true          # Don't show in related posts
-deprecated_by: /enzyme    # Point to latest version
-prism_languages: [vim]    # Extra syntax highlighting
+updated: 2020-06-14
+ads: false # Add this to disable ads
+weight: -5 # lower number = higher in related posts list
+deprecated: true # Don't show in related posts
+deprecated_by: /enzyme # Point to latest version
+prism_languages: [vim] # Extra syntax highlighting
 intro: |
   This is some *Markdown* at the beginning of the article.
 tags:
@@ -82,9 +96,10 @@ tags:
 
 # Special pages:
 # (don't set these for cheatsheets)
-type: home                # home | article | error
-og_type: website          # opengraph type
+type: home # home | article | error
+og_type: website # opengraph type
 ---
+
 ```
 
 ## Prism languages
@@ -104,6 +119,7 @@ title: ES2015
 category: Hidden
 redirect_to: /es6
 ---
+
 ```
 
 ## Localizations
@@ -131,7 +147,7 @@ The site devhints.io is backed by CloudFlare. Updates will take 2 days to propag
 
 There are multiple ways to set meta description.
 
-### keywords (and intro)
+### Keywords (and intro)
 
 Set `keywords` (and optionally `intro`). This is the easiest and the preferred
 way for now.
@@ -144,7 +160,7 @@ React.Component · render() · componentDidMount() · props/state · React is a
 JavaScript library for building web...
 ```
 
-### description (and intro)
+### Description (and intro)
 
 Set `description` (and optionally `intro`)
 
@@ -156,29 +172,6 @@ One-page reference to React and its API. React is a JavaScript library for
 building web user interfaces...
 ```
 
-### intro only
+### Intro only
 
 If you left out `description` or `keywords`, a default description will be added.
-
-## Critical path CSS
-
-The critical path CSS is stored in:
-
-- `_includes/2017/critical/home.html`
-- `_includes/2017/critical/sheet.html`
-
-You'll need to update these every now and then when you change something in the CSS. Use this to update these snippets:
-
-```
-yarn run critical
-```
-
-You can temporarily disable critical path optimizations by loading it with `?nocrit=1`, eg, `https://devhints.io/?nocrit=1`.
-
-## Critical path JS
-
-There's JavaScript that's included inline in every page. It's entrypoint is:
-
-- `_js/critical.js`
-
-This is automatically compiled into the partial `_includes/2017/critical/critical.js`. Keep this bundle as small as possible.

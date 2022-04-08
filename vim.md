@@ -3,10 +3,11 @@ title: Vim
 category: Vim
 layout: 2017/sheet
 tags: [Featured]
-updated: 2018-10-26
+updated: 2020-07-05
 weight: -10
 intro: |
-  [Vim](http://www.vim.org/) is a very efficient text editor. This reference was made for Vim 8.0.
+ [Vim](http://www.vim.org/) is a very efficient text editor. This reference was made for Vim 8.0.
+ For shortcut notation, see `:help key-notation`.
 ---
 
 Getting started
@@ -17,7 +18,7 @@ Getting started
 {: .-prime}
 
 | Shortcut       | Description                      |
-| ---            | ---                              |
+| -------------- | -------------------------------- |
 | `:qa`          | Close all files                  |
 | `:qa!`         | Close all files, abandon changes |
 | ---            | ---                              |
@@ -33,14 +34,19 @@ Getting started
 
 ### Navigating
 
-| `h` `j` `k` `l`     | Arrow keys                         |
-| `<C-U>` _/_ `<C-D>` | Page up/page down                  |
+| Shortcut            | Description       |
+| ---                 | ---               |
+| `h` `j` `k` `l`     | Arrow keys        |
+| `<C-U>` _/_ `<C-D>` | Half-page up/down |
+| `<C-B>` _/_ `<C-F>` | Page up/down      |
 {: .-shortcuts}
 
 #### Words
 
-| `b` _/_ `w`     | Previous/next word                 |
-| `e` _/_ `ge`    | Previous/next end of word          |
+| Shortcut     | Description               |
+| ---          | ---                       |
+| `b` _/_ `w`  | Previous/next word        |
+| `ge` _/_ `e` | Previous/next end of word |
 {: .-shortcuts}
 
 #### Line
@@ -50,6 +56,12 @@ Getting started
 | `0` _(zero)_ | Start of line                      |
 | `^`          | Start of line _(after whitespace)_ |
 | `$`          | End of line                        |
+{: .-shortcuts}
+
+#### Character
+
+| `fc`  | Go forward to character `c`  |
+| `Fc`  | Go backward to character `c` |
 {: .-shortcuts}
 
 #### Document
@@ -67,17 +79,42 @@ Getting started
 | Shortcut | Description              |
 | ---      | ---                      |
 | `zz`     | Center this line         |
+| `zt`     | Top this line            |
+| `zb`     | Bottom this line         |
 | `H`      | Move to top of screen    |
 | `M`      | Move to middle of screen |
 | `L`      | Move to bottom of screen |
 {: .-shortcuts}
 
+#### Search
+
+| Shortcut  | Description                         |
+| ---       | ---                                 |
+| `n`       | Next matching search pattern        |
+| `N`       | Previous match                      |
+| `*`       | Next whole word under cursor        |
+| `#`       | Previous whole word under cursor    |
+{: .-shortcuts}
+
+#### Tab pages
+
+| Shortcut              | Description                     |
+| ---                   | ---                             |
+| `:tabedit [file]`     | Edit file in a new tab          |
+| `:tabfind [file]`     | Open file if exists in new tab  |
+| `:tabclose`           | Close current tab               |
+| `:tabs`               | List all tabs                   |
+| `:tabfirst`           | Go to first tab                 |
+| `:tablast`            | Go to last tab                  |
+| `:tabn    `           | Go to next tab                  |
+| `:tabp    `           | Go to previous tab              |
 
 ### Editing
 
 | Shortcut | Description                         |
 | ---      | ---                                 |
 | `a`      | Append                              |
+| `A`      | Append from end of line             |
 | `i`      | Insert                              |
 | `o`      | Next line                           |
 | `O`      | Previous line                       |
@@ -91,38 +128,48 @@ Getting started
 | `:%s/foo/bar/g` | Find each occurrence of 'foo' (in all lines), and replace it with 'bar'. |
 | `:%s/foo/bar/gc` | Change each 'foo' to 'bar', but ask for confirmation. |
 | `:%s/\<foo\>/bar/gc` | Change only whole words exactly matching 'foo' to 'bar', ask for confirmation. |
+| ---      | ---                                 |
+| `u`      | Undo changes                        |
+| `<C-R>`  | Redo changes                        |
 {: .-shortcuts}
 
 ### Exiting insert mode
 
-| Shortcut | Description |
-| --- | --- |
+| Shortcut          | Description |
+| ---               | ---         |
 | `Esc` _/_ `<C-[>` | Exit insert mode |
-| `<C-C>` | Exit insert mode, and abort current command |
+| `<C-C>`           | Exit insert mode, and abort current command |
 {: .-shortcuts}
 
 ### Clipboard
 
-| Shortcut | Description         |
-| ---      | ---                 |
-| `x`      | Delete character    |
-| ---      | ---                 |
-| `dd`     | Delete line _(Cut)_ |
-| `yy`     | Yank line _(Copy)_  |
-| ---      | ---                 |
-| `p`      | Paste               |
-| `P`      | Paste before        |
+| Shortcut        | Description                 |
+| ---             | ---                         |
+| `x`             | Delete character            |
+| ---             | ---                         |
+| `dd`            | Delete line _(Cut)_         |
+| `yy`            | Yank line _(Copy)_          |
+| ---             | ---                         |
+| `p`             | Paste                       |
+| `P`             | Paste before                |
+| ---             | ---                         |
+| `"*p` _/_ `"+p` | Paste from system clipboard |
+| `"*y` _/_ `"+y` | Paste to system clipboard   |
 {: .-shortcuts}
 
 ### Visual mode
 
-| `v`         | Enter visual mode       |
-| `V`         | Enter visual line mode  |
-| `<C-V>`        | Enter visual block mode |
+| Shortcut | Description             |
+| ---      | ---                     |
+| `v`      | Enter visual mode       |
+| `V`      | Enter visual line mode  |
+| `<C-V>`  | Enter visual block mode |
 {: .-shortcuts}
 
 #### In visual mode
 
+| Shortcut    | Description             |
+| ---         | ---                     |
 | `d` _/_ `x` | Delete selection        |
 | `s`         | Replace selection       |
 | `y`         | Yank selection _(Copy)_ |
@@ -137,7 +184,7 @@ Operators
 ### Usage
 {: .-prime}
 
-Operators let you operate in a range of text (defined by *motion*). These are preformed in normal mode.
+Operators let you operate in a range of text (defined by *motion*). These are performed in normal mode.
 {: .-setup}
 
 | `d`      | `w`    |
@@ -154,6 +201,7 @@ Operators let you operate in a range of text (defined by *motion*). These are pr
 | ---      | ---                             |
 | `>`      | Indent right                    |
 | `<`      | Indent left                     |
+| `=`      | Autoindent                      |
 | ---      | ---                             |
 | `g~`     | Swap case                       |
 | `gU`     | Uppercase                       |
@@ -226,6 +274,13 @@ Text objects let you operate (with an *operator*) in or around text blocks (*obj
 
 See [Operators](#operators) for other things you can do.
 
+### Diff
+
+| Shortcut                             | Description                              |
+| ---                                  | ---                                      |
+| `gvimdiff file1 file2 [file3]`       | See differences between files, in HMI    |
+
+
 Misc
 ----
 
@@ -254,27 +309,30 @@ Uppercase ones are recursive (eg, `zO` is open recursively).
 
 | Shortcut            | Description                |
 | ---                 | ---                        |
-| `[(` `[{` `[<`      | previous `(` or `{` or `<` |
-| `])`                | next                       |
+| `%`                 | Nearest/matching `{[()]}`  |
+| `[(` `[{` `[<`      | Previous `(` or `{` or `<` |
+| `])`                | Next                       |
 | ---                 | ---                        |
-| `[m`                | previous method start      |
-| `[M`                | previous method end        |
+| `[m`                | Previous method start      |
+| `[M`                | Previous method end        |
 {: .-shortcuts}
 
 ### Jumping
 
 | Shortcut | Description                  |
 | ---      | ---                          |
-| `<C-O>`     | Go back to previous location |
-| `<C-I>`     | Go forward                   |
+| `<C-O>`  | Go back to previous location |
+| `<C-I>`  | Go forward                   |
 | ---      | ---                          |
-| `gf`     | go to file in cursor         |
+| `gf`     | Go to file in cursor         |
 {: .-shortcuts}
 
 ### Counters
 
-| `<C-A>` | increment number |
-| `<C-X>` | decrement |
+| Shortcut | Description      |
+| ---      | ---              |
+| `<C-A>`  | Increment number |
+| `<C-X>`  | Decrement        |
 {: .-shortcuts}
 
 ### Windows
@@ -300,43 +358,62 @@ Uppercase ones are recursive (eg, `zO` is open recursively).
 
 | Shortcut | Description                          |
 | ---      | ---                                  |
-| `~`      | toggle case (Case => cASE)           |
-| `gU`     | uppercase                            |
-| `gu`     | lowercase                            |
+| `~`      | Toggle case (Case => cASE)           |
+| `gU`     | Uppercase                            |
+| `gu`     | Lowercase                            |
 | ---      | ---                                  |
-| `gUU`    | uppercase current line (also `gUgU`) |
-| `guu`    | lowercase current line (also `gugu`) |
+| `gUU`    | Uppercase current line (also `gUgU`) |
+| `guu`    | Lowercase current line (also `gugu`) |
 {: .-shortcuts}
 
 Do these in visual or normal mode.
 
 ### Marks
 
-| Shortcut        | Description                                        |
-| ---             | ---                                                |
-| <code>`^</code> | Last position of cursor in insert mode             |
-| <code>`.</code> | Last change                                        |
-| <code>``</code> | Last jump                                          |
-| ---             | ---                                                |
-| `ma`            | Mark this cursor position as `a`                   |
-| <code>`a</code> | Jump to the cursor position `a`                    |
-| `'a`            | Jump to the beginning of the line with position `a`|
+| Shortcut           | Description                                          |
+| ---                | ---                                                  |
+| <code>`^</code>    | Last position of cursor in insert mode               |
+| <code>`.</code>    | Last change in current buffer                        |
+| <code>`"</code>    | Last exited current buffer                           |
+| <code>`0</code>    | In last file edited                                  |
+| <code>''</code>    | Back to line in current buffer where jumped from     |
+| <code>``</code>    | Back to position in current buffer where jumped from |
+| <code>`[</code>    | To beginning of previously changed or yanked text    |
+| <code>`]</code>    | To end of previously changed or yanked text          |
+| <code>`&lt;</code> | To beginning of last visual selection                |
+| <code>`&gt;</code> | To end of last visual selection                      |
+| ---                | ---                                                  |
+| `ma`               | Mark this cursor position as `a`                     |
+| <code>`a</code>    | Jump to the cursor position `a`                      |
+| `'a`               | Jump to the beginning of the line with position `a`  |
+| <code>d'a</code>   | Delete from current line to line of mark `a`         |
+| <code>d`a</code>   | Delete from current position to position of mark `a` |
+| <code>c'a</code>   | Change text from current line to line of `a`         |
+| <code>y`a</code>   | Yank text from current position to position of `a`   |
+| ---                | ---                                                  |
+| `:marks`           | List all current marks                               |
+| `:delm a`          | Delete mark `a`                                      |
+| `:delm a-d`        | Delete marks `a`, `b`, `c`, `d`                      |
+| `:delm abc`        | Delete marks `a`, `b`, `c`                           |
 {: .-shortcuts}
 
 ### Misc
 
-| Shortcut | Description                               |
-| ---      | ---                                       |
-| `.`      | repeat last command                       |
-| `]p`     | paste under the current indentation level |
+| Shortcut   | Description                                       |
+| ---        | ---                                               |
+| `.`        | Repeat last command                               |
+| `]p`       | Paste under the current indentation level         |
+| ---        | ---                                               |
+| `:set ff=unix` | Convert Windows line endings to Unix line endings |
 {: .-shortcuts}
 
 ### Command line
 
 | Shortcut     | Description                               |
 | ---          | ---                                       |
-| `<C-R><C-W>` | insert current word into the command line |
-| `<C-R>"`     | paste from " register                     |
+| `<C-R><C-W>` | Insert current word into the command line |
+| `<C-R>"`     | Paste from " register                     |
+| `<C-X><C-F>` | Auto-completion of path in insert mode    |
 {: .-shortcuts}
 
 ### Text alignment
@@ -349,7 +426,9 @@ See `:help formatting`
 
 ### Calculator
 
-    <C-R>=128/2
+| Shortcut      | Description                               |
+| ---           | ---                                       |
+| `<C-R>=128/2` | Shows the result of the division : '64'   |
 
 Do this in insert mode.
 
@@ -405,6 +484,21 @@ nmap  <Leader>sf <Plug>CtrlSFPrompt
 nnoremap <Leader>st :CtrlSFToggle<CR>
 set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 ```
+### Spell checking
+
+| Shortcut                     | Description                                             |
+| ---                          | ---                                                     |
+| `:set spell spelllang=en_us` | Turn on US English spell checking                       |
+| `]s`                         | Move to next misspelled word after the cursor           |
+| `[s`                         | Move to previous misspelled word before the cursor      |
+| `z=`                         | Suggest spellings for the word under/after the cursor   |
+| `zg`                         | Add word to spell list                                  |
+| `zw`                         | Mark word as bad/mispelling                             |
+| `zu` / `C-X (Insert Mode)`   | Suggest words for bad word under cursor from spellfile  |
+{: .-shortcuts}
+
+See `:help spell`
+
 
 Also see
 --------

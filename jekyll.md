@@ -4,7 +4,7 @@ jekyll_escape: true
 layout: 2017/sheet
 prism_languages: [bash, yaml, ruby]
 category: Jekyll
-updated: 2017-09-01
+updated: 2018-08-25
 ---
 
 {% raw %}
@@ -139,7 +139,7 @@ Markup
 {% for post in site.posts %}
   <a href="{{ post.url }}">
     <h2>{{ post.title }}</h2>
-    <p>{{ post.date | date_to_string }}</h2>
+    <p>{{ post.date | date_to_string }}</p>
   </a>
 {% endfor %}
 ```

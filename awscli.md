@@ -9,12 +9,14 @@ layout: 2017/sheet
 ```
 aws ec2 describe-instances
 aws ec2 start-instances --instance-ids i-12345678c
+aws ec2 terminate-instances --instance-ids i-12345678c
 ```
 
 ### S3
 
 ```
 aws s3 ls s3://mybucket
+aws s3 rm s3://mybucket/folder --recursive
 aws s3 cp myfolder s3://mybucket/folder --recursive
 aws s3 sync myfolder s3://mybucket/folder --exclude *.tmp
 ```
@@ -34,6 +36,13 @@ aws ecs create-service
 ```
 brew install awscli
 aws configure
+```
+
+### Configuration profiles
+
+```
+aws configure --profile project1
+aws configure --profile project2
 ```
 
 ## Elastic Beanstalk

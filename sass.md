@@ -3,7 +3,7 @@ title: Sass
 category: CSS
 layout: 2017/sheet
 tags: [Featured]
-updated: 2017-08-26
+updated: 2020-07-03
 weight: -5
 keywords:
   - Variables
@@ -17,6 +17,13 @@ keywords:
 
 ## Basics
 {: .-three-column}
+
+### Introduction
+{: .-intro}
+
+This is a quick reference to [Sass stylesheets](https://sass-lang.com).
+
+- [Sass documentation](https://sass-lang.com/documentation) _(sass-lang.com)_
 
 ### Variables
 
@@ -34,13 +41,20 @@ body {
 
 ```scss
 .markdown-body {
-  p {
+  a {
     color: blue;
+    &:hover {
+      color: red;
+    }
   }
+}
+```
 
-  &:hover {
-    color: red;
-  }
+#### to properties
+```scss
+text: {
+  align: center;          // like text-align: center
+  transform: uppercase;   // like text-transform: uppercase
 }
 ```
 
@@ -66,7 +80,7 @@ h1 {
 }
 ```
 
-### Mixin properties
+#### with parameters
 
 ```scss
 @mixin font-size($n) {
@@ -77,6 +91,39 @@ h1 {
 ```scss
 body {
   @include font-size(2);
+}
+```
+
+#### with default values
+
+```scss
+@mixin pad($n: 10px) {
+  padding: $n;
+}
+```
+
+```scss
+body {
+  @include pad(15px);
+}
+```
+
+#### with a default variable
+
+```scss
+// Set a default value
+$default-padding: 10px;
+```
+
+```scss
+@mixin pad($n: $default-padding) {
+  padding: $n;
+}
+```
+
+```scss
+body {
+  @include pad(15px);
 }
 ```
 
@@ -97,9 +144,12 @@ body {
 ### Composing
 
 ```scss
-@import './other_sass_file`;
+@import './other_sass_file';
+@use './other_sass_file';
 ```
 
+The `@import` rule is discouraged because will get eventually [removed from the language](https://sass-lang.com/documentation/at-rules/import).  
+Instead, we should use the [`@use` rule](https://sass-lang.com/documentation/at-rules/use).  
 The `.scss` or `.sass` extension is optional.
 
 ## Color functions
@@ -133,7 +183,7 @@ grayscale($color)
 
 ```scss
 adjust-hue($color, 15deg)
-compliment($color)    // like adjust-hue(_, 180deg)
+complement($color)    // like adjust-hue(_, 180deg)
 invert($color)
 ```
 
@@ -156,7 +206,7 @@ alpha($color)       // → 0..1 (aka opacity())
 
 #### RGB
 
-```
+```scss
 red($color)         // → 0..255
 green($color)
 blue($color)
@@ -320,6 +370,10 @@ $i: 6;
 @if $position == 'left' {
    position: absolute;
    left: 0;
+}
+@else if $position == 'right' {
+   position: absolute;
+   right: 0;
 }
 @else {
    position: static;
